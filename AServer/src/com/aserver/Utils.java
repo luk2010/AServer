@@ -35,4 +35,8 @@ public class Utils {
 		
 		return msg;
 	}
+	
+	static public String idToItem(String id) {
+		return Material.matchMaterial(id).name();
+	}
 }

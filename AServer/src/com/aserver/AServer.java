@@ -58,6 +58,7 @@ public class AServer extends JavaPlugin {
 		this.getCommand("list").setExecutor(cmdExecutor);
 		this.getCommand("give").setExecutor(cmdExecutor);
 		this.getCommand("set").setExecutor(cmdExecutor);
+		this.getCommand("get").setExecutor(cmdExecutor);
 		
 		Utils.log(Utils.pName() + " Activation terminee !");
 	}

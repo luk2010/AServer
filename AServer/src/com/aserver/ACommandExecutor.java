@@ -229,6 +229,20 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
+		else if(base.equalsIgnoreCase("get")) {
+			
+			if(arg1.equalsIgnoreCase("itemid")) {
+				
+				if(arg2.isEmpty()) {
+					((Player) sender).sendMessage(ChatColor.RED + "Veuillez indiquer l'ID !");
+					return false;
+				}
+				
+				((Player) sender).sendMessage(ChatColor.BLUE + "ID : " + arg2 + " Item : " + Utils.idToItem(arg2));
+				return true;
+			}
+		}
+		
 		return false;
 	}
 

@@ -42,5 +42,9 @@ commands:
         description: Change a property of the player. Can be used to change chat default settings, or else…
         usage:
             /<command> [part ; chat] [part2 ; name | text | ..] [part3 ; color | format ..] [data ; &yellow ..]
+    get:
+        description: Get a property from the player. Get informations too ;)
+        usage:
+            /<command> [part ; chat | itemid] [part2 ; name | text | ID..] ...
             
             
