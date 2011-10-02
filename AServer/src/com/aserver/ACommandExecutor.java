@@ -241,6 +241,27 @@ public class ACommandExecutor implements CommandExecutor
 				((Player) sender).sendMessage(ChatColor.BLUE + "ID : " + arg2 + " Item : " + Utils.idToItem(arg2));
 				return true;
 			}
+			
+			else if(arg1.equalsIgnoreCase("chat")) {
+				
+				if(arg2.equalsIgnoreCase("name")) {
+					
+					if(arg3.equalsIgnoreCase("color")) {
+						
+						((Player) sender).sendMessage(Utils.formatMessage(server.getPlayerManager().getPlayerOptions((Player)sender).getDefaultNameColor() + "Couleur courante..."));
+						return true;
+					}
+				}
+				
+				else if(arg2.equalsIgnoreCase("text")) {
+					
+					if(arg3.equalsIgnoreCase("color")) {
+						
+						((Player) sender).sendMessage(Utils.formatMessage(server.getPlayerManager().getPlayerOptions((Player)sender).getDefaultChatColor() + "Couleur courante..."));
+						return true;
+					}
+				}
+			}
 		}
 		
 		return false;
