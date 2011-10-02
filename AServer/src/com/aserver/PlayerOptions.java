@@ -14,6 +14,7 @@ public class PlayerOptions implements Serializable {
 	private boolean godmode = false;
 	private String defaultChatColor = "&white";
 	private String defaultNameColor = "&white";
+	private boolean displayOnlinePlayers = false;
 	
 	private ArrayList<Place> homes = new ArrayList<Place>();
 	private ArrayList<Place> tpoints = new ArrayList<Place>();
@@ -137,5 +138,13 @@ public class PlayerOptions implements Serializable {
 
 	public void setDefaultNameColor(String defaultNameColor) {
 		this.defaultNameColor = defaultNameColor;
+	}
+
+	public boolean isOnlinePlayersDisplay() {
+		return displayOnlinePlayers;
+	}
+
+	public void setDisplayOnlinePlayers(boolean displayOnlinePlayers) {
+		this.displayOnlinePlayers = displayOnlinePlayers;
 	}
 }

@@ -46,5 +46,17 @@ commands:
         description: Get a property from the player. Get informations too ;)
         usage:
             /<command> [part ; chat | itemid] [part2 ; name | text | ID..] ...
+    time:
+        description: Change or get actual time.
+        usage:
+            /<command> [action]
+    weather:
+        description: Change or get the actual weather.
+        usage:
+            /<command> [action]
+    help:
+        description: Provide help method to.. help you !
+        usage:
+            /<command> [page or command]
             
             

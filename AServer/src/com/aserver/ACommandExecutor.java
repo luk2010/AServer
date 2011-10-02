@@ -1,5 +1,7 @@
 package com.aserver;
 
+import java.util.ArrayList;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -114,7 +116,7 @@ public class ACommandExecutor implements CommandExecutor
 				((Player) sender).sendMessage(ChatColor.GREEN + "Liste des maisons enregistrees :");
 				((Player) sender).sendMessage(ChatColor.YELLOW + "--------------------------------");
 				for(Place place : server.getPlayerManager().getPlayerOptions((Player)sender).getHomes()) {
-					if(place.getName() == server.getPlayerManager().getMainHomeName()) {
+					if(place.getName().equals(server.getPlayerManager().getMainHomeName())) {
 						((Player) sender).sendMessage(ChatColor.BLUE + "Principale" + " : x = " + place.getX() + " y = " + place.getY() + " z = " + place.getZ());
 					}
 					else {
@@ -209,7 +211,7 @@ public class ACommandExecutor implements CommandExecutor
 							return false;
 						}
 						
-						server.getPlayerManager().getPlayerOptions(server.getPlayerManager().getPlayer(sender.getName())).setDefaultNameColor(arg4);
+						server.getPlayerManager().getPlayerOptions((Player) sender).setDefaultNameColor(arg4);
 						return true;
 					}
 				}
@@ -223,6 +225,14 @@ public class ACommandExecutor implements CommandExecutor
 						}
 						
 						server.getPlayerManager().getPlayerOptions(server.getPlayerManager().getPlayer(sender.getName())).setDefaultChatColor(arg4);
+						return true;
+					}
+				}
+				else if(arg2.equalsIgnoreCase("display")) {
+					
+					if(arg3.equalsIgnoreCase("players")) {
+						
+						server.getPlayerManager().getPlayerOptions((Player) sender).setDisplayOnlinePlayers(!(server.getPlayerManager().getPlayerOptions((Player) sender).isOnlinePlayersDisplay()));
 						return true;
 					}
 				}
@@ -261,6 +271,95 @@ public class ACommandExecutor implements CommandExecutor
 						return true;
 					}
 				}
+			}
+		}
+		
+		else if(base.equalsIgnoreCase("time")) {
+			
+			if(arg1.equalsIgnoreCase("set")) {
+				
+				if(arg2.isEmpty()) {
+					((Player) sender).sendMessage(ChatColor.RED + "Veuillez indiquer l'heure (de 0000 pour 7h00 jusqua 2400).");
+					return false;
+				}
+				
+				((Player) sender).getWorld().setTime(Integer.parseInt(arg2));
+				return true;
+			}
+			
+			else if(arg1.equalsIgnoreCase("get")) {
+				
+				((Player)sender).sendMessage(ChatColor.BLUE + "Il est " + Integer.toString((int)((Player) sender).getWorld().getTime()));
+				return true;
+			}
+		}
+		
+		else if(base.equalsIgnoreCase("weather")) {
+			
+			if(arg1.equalsIgnoreCase("set")) {
+				
+				if(arg2.equalsIgnoreCase("sun")) {
+					
+					((Player) sender).getWorld().setStorm(false);
+					((Player) sender).getWorld().setThundering(false);
+					return true;
+				}
+				
+				else if(arg2.equalsIgnoreCase("storm")) {
+					
+					((Player) sender).getWorld().setStorm(true);
+					return true;
+				}
+				
+				else if(arg2.equalsIgnoreCase("thunder")) {
+					
+					((Player) sender).getWorld().setThundering(true);
+					return true;
+				}
+			}
+		}
+		
+		else if(base.equalsIgnoreCase("help")) {
+			
+			if(arg1.isEmpty()) {
+				((Player) sender).sendMessage(ChatColor.GREEN + "Help message pour la commande help :");
+				((Player) sender).sendMessage(ChatColor.YELLOW + "------------------------------------");
+				((Player) sender).sendMessage(ChatColor.BLUE + "Help permet de connaitre l'usage et la description d'une fonction passee en parametre ( en tapant par exemple /help give ) ou de connaitre la liste des fonctions en tapant /help num, ou num est le numero de la page.");
+				((Player) sender).sendMessage(ChatColor.RED + "Il y a actuellement " + Integer.toString(server.getpListener().getHelpPages()) + " pages.");
+				((Player) sender).sendMessage(ChatColor.YELLOW + "------------------------------------");
+				
+				return true;
+			}
+			else if(server.getpListener().containsCommand(arg1)) {
+				((Player) sender).sendMessage(ChatColor.GREEN + "Help message pour la commande " + arg1 + " :");
+				((Player) sender).sendMessage(ChatColor.YELLOW + "---------------------------------------------");
+				CommandHelp command = server.getpListener().getHelpCommand(arg1);
+				if(command == null) {
+					((Player) sender).sendMessage(ChatColor.RED + "La commade est inconnue !");
+					((Player) sender).sendMessage(ChatColor.YELLOW + "----------------------------------------------");
+					return false;
+				}
+				
+				((Player) sender).sendMessage(ChatColor.BLUE + command.getDescription());
+				((Player) sender).sendMessage(ChatColor.BLUE + "Usage : " + ChatColor.GOLD + command.getUsage());
+				((Player) sender).sendMessage(ChatColor.YELLOW + "--------------------------------------------");
+				
+				return true;
+			}
+			else if(arg1.matches("[0-9]*")) {
+				ArrayList<CommandHelp> listPage = server.getpListener().getHelpPage(Integer.parseInt(arg1));
+				if(listPage.isEmpty()) {
+					((Player) sender).sendMessage(ChatColor.RED + "La page specifiee n'existe pas !");
+					return false;
+				}
+				
+				((Player) sender).sendMessage(ChatColor.GREEN + "Page d'aide n¼ " + arg1 + " :");
+				((Player) sender).sendMessage(ChatColor.YELLOW + "-----------------------------");
+				for(CommandHelp command : listPage) {
+					((Player) sender).sendMessage(ChatColor.BLUE + command.getName());
+				}
+				((Player) sender).sendMessage(ChatColor.YELLOW + "-----------------------------");
+				return true;
 			}
 		}
 		

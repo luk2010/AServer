@@ -46,6 +46,15 @@ public class PlayerManager extends PlayerListener {
 			else {
 				players.put(event.getPlayer(), po);
 			}
+			
+			if(players.get(event.getPlayer()).isOnlinePlayersDisplay()) {
+				this.send(event.getPlayer(), ChatColor.BLUE + "Liste des joueurs en ligne : ");
+				String players_online = "";
+				for(Player player : players.keySet()) {
+					players_online += player.getDisplayName() + ", ";
+				}
+				this.send(event.getPlayer(), ChatColor.GOLD + players_online + ".");
+			}
 		} else {
 			Utils.log(Utils.pName() + " Attention, le joueur " + event.getPlayer().getDisplayName() + " s'est connecte plusieurs fois en meme temps !");
 		}

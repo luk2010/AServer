@@ -13,6 +13,7 @@ public class AServer extends JavaPlugin {
 	private ACommandExecutor cmdExecutor = new ACommandExecutor(this);
 	private AEntityListener eListener = new AEntityListener(this);
 	private ABlockListener bListener = new ABlockListener(this);
+	private APluginListener pListener = new APluginListener(this);
 
 	@Override
 	public void onDisable() {
@@ -39,6 +40,8 @@ public class AServer extends JavaPlugin {
 		}
 		
 		PluginManager pm = this.getServer().getPluginManager();
+		pm.registerEvent(Event.Type.PLUGIN_ENABLE, pListener, Event.Priority.Normal, this);
+		
 		pm.registerEvent(Event.Type.PLAYER_JOIN, playerManager, Event.Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_QUIT, playerManager, Event.Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_CHAT, playerManager, Event.Priority.Highest, this);
@@ -59,6 +62,9 @@ public class AServer extends JavaPlugin {
 		this.getCommand("give").setExecutor(cmdExecutor);
 		this.getCommand("set").setExecutor(cmdExecutor);
 		this.getCommand("get").setExecutor(cmdExecutor);
+		this.getCommand("time").setExecutor(cmdExecutor);
+		this.getCommand("weather").setExecutor(cmdExecutor);
+		this.getCommand("help").setExecutor(cmdExecutor);
 		
 		Utils.log(Utils.pName() + " Activation terminee !");
 	}
@@ -85,6 +91,14 @@ public class AServer extends JavaPlugin {
 
 	public void setbListener(ABlockListener bListener) {
 		this.bListener = bListener;
+	}
+
+	public APluginListener getpListener() {
+		return pListener;
+	}
+
+	public void setpListener(APluginListener pListener) {
+		this.pListener = pListener;
 	}
 
 }

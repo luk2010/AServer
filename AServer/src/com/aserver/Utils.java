@@ -37,6 +37,9 @@ public class Utils {
 	}
 	
 	static public String idToItem(String id) {
+		Material material = Material.matchMaterial(id);
+		if(material == null)
+			return "Unknown material id !";
 		return Material.matchMaterial(id).name();
 	}
 }
