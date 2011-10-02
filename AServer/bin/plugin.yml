@@ -1,0 +1,46 @@
+name: Atlanti-s Corp Server Plugin
+main: com.aserver.AServer
+version: 0.1 alpha
+commands:
+    debug:
+        description: Toggles debug mode.
+        usage: 
+            /<command>
+    sethome:
+        description: Set a home. To set your main home, forget [home name] !
+        usage:
+            /<command> [home name]
+    home:
+        description: Teleport you to your home. If no home set, do nothing. To teleport to your main home, just forget [home name] !
+        usage:
+            /<command> [home name]
+    setTPoint:
+        description: Set a Teleportation Point.
+        usage:
+            /<command> [tpoint name]
+    goTPoint:
+        description: Teleports you to the specified teleport point you have already setted.
+        usage:
+            /<command> [tpoint name]
+    tp:
+        description: Teleport you to another player.
+        usage:
+            /<command> [player name]
+    god:
+        description: Toggle god mode.
+        usage:
+            /<command>
+    list:
+        description: List different things. Mode can be players ( for a list of players online ), home (for a list of your homes), and tpoint ( for a list of your tpoints ).
+        usage:
+            /<command> [Mode]
+    give:
+        description: Give a player a specified amount of specified item. If you dont set a player name, it gives to you...
+        usage:
+            /<command> [player] [amount] [id]
+    set:
+        description: Change a property of the player. Can be used to change chat default settings, or else…
+        usage:
+            /<command> [part ; chat] [part2 ; name | text | ..] [part3 ; color | format ..] [data ; &yellow ..]
+            
+            
