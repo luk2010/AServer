@@ -6,14 +6,18 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class PlayerManager extends PlayerListener {
 	
@@ -250,12 +254,31 @@ public class PlayerManager extends PlayerListener {
 	}
 	
 	public void onPlayerChat(PlayerChatEvent e) {
-		String msg = "[" + this.getPlayerOptions(e.getPlayer()).getDefaultNameColor() + e.getPlayer().getDisplayName() + "&white ] " + this.getPlayerOptions(e.getPlayer()).getDefaultChatColor() + e.getMessage();
+		String msg = "[" + this.getPlayerOptions(e.getPlayer()).getDefaultNameColor() + e.getPlayer().getDisplayName() + "&white] " + this.getPlayerOptions(e.getPlayer()).getDefaultChatColor() + e.getMessage();
 		for(Player player : players.keySet()) {
 			
 			player.sendMessage(Utils.formatMessage(msg));
 			
 		}
 		e.setCancelled(true);
+	}
+	
+	public void onPlayerRespawn(PlayerRespawnEvent e) {
+		if(players.containsKey(e.getPlayer())) {
+			if(players.get(e.getPlayer()).getHomes().isEmpty() == false) {
+				e.setRespawnLocation(players.get(e.getPlayer()).getHomes().get(0).toLocation(e.getPlayer().getWorld()));
+			}
+		}
+	}
+	
+	public Location getPlayerTarget(Player player) {
+		HashSet<Byte> transparent = new HashSet<Byte>();
+		transparent.add((byte) 20);
+		transparent.add((byte) 0);
+		Block block = player.getTargetBlock(transparent, server.getServer().getViewDistance());
+		if(block != null)
+			return block.getLocation();
+		else
+			return null;
 	}
 }

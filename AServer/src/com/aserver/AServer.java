@@ -45,6 +45,7 @@ public class AServer extends JavaPlugin {
 		pm.registerEvent(Event.Type.PLAYER_JOIN, playerManager, Event.Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_QUIT, playerManager, Event.Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_CHAT, playerManager, Event.Priority.Highest, this);
+		pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerManager, Event.Priority.Highest, this);
 		
 		pm.registerEvent(Event.Type.ENTITY_DAMAGE, eListener, Event.Priority.Normal, this);
 		
@@ -65,6 +66,7 @@ public class AServer extends JavaPlugin {
 		this.getCommand("time").setExecutor(cmdExecutor);
 		this.getCommand("weather").setExecutor(cmdExecutor);
 		this.getCommand("help").setExecutor(cmdExecutor);
+		this.getCommand("spawn").setExecutor(cmdExecutor);
 		
 		Utils.log(Utils.pName() + " Activation terminee !");
 	}
@@ -91,6 +93,14 @@ public class AServer extends JavaPlugin {
 
 	public void setbListener(ABlockListener bListener) {
 		this.bListener = bListener;
+	}
+	
+	public void seteListener(AEntityListener eListener) {
+		this.eListener = eListener;
+	}
+	
+	public AEntityListener geteListener() {
+		return eListener;
 	}
 
 	public APluginListener getpListener() {

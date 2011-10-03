@@ -3,10 +3,12 @@ package com.aserver;
 import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Player;
 
 public class ACommandExecutor implements CommandExecutor
@@ -359,6 +361,74 @@ public class ACommandExecutor implements CommandExecutor
 					((Player) sender).sendMessage(ChatColor.BLUE + command.getName());
 				}
 				((Player) sender).sendMessage(ChatColor.YELLOW + "-----------------------------");
+				return true;
+			}
+		}
+		
+		else if(base.equalsIgnoreCase("spawn")) {
+			Location loc = server.getPlayerManager().getPlayerTarget((Player) sender);
+			if(loc == null) {
+				((Player) sender).sendMessage(ChatColor.RED + "La cible est soit trop loin soit inexistante (air) !");
+				return false;
+			}
+			
+			if(arg1.equalsIgnoreCase("mob")) {
+				if(arg2.equalsIgnoreCase("chicken")) {
+					 server.geteListener().spawmCreature(CreatureType.CHICKEN, loc);
+				}
+				else if(arg2.equalsIgnoreCase("cow")) {
+					server.geteListener().spawmCreature(CreatureType.COW, loc);
+				}
+				else if(arg2.equalsIgnoreCase("pig")) {
+					server.geteListener().spawmCreature(CreatureType.PIG, loc);
+				}
+				else if(arg2.equalsIgnoreCase("sheep")) {
+					server.geteListener().spawmCreature(CreatureType.SHEEP, loc);
+				}
+				else if(arg2.equalsIgnoreCase("squid")) {
+					server.geteListener().spawmCreature(CreatureType.SQUID, loc);
+				}
+				else if(arg2.equalsIgnoreCase("enderman")) {
+					server.geteListener().spawmCreature(CreatureType.ENDERMAN, loc);
+				}
+				else if(arg2.equalsIgnoreCase("wolf")) {
+					server.geteListener().spawmCreature(CreatureType.WOLF, loc);
+				}
+				else if(arg2.equalsIgnoreCase("zombie_pigman")) {
+					server.geteListener().spawmCreature(CreatureType.PIG_ZOMBIE, loc);
+				}
+				else if(arg2.equalsIgnoreCase("cave_spider")) {
+					server.geteListener().spawmCreature(CreatureType.CAVE_SPIDER, loc);
+				}
+				else if(arg2.equalsIgnoreCase("creeper")) {
+					server.geteListener().spawmCreature(CreatureType.CREEPER, loc);
+				}
+				else if(arg2.equalsIgnoreCase("ghast")) {
+					server.geteListener().spawmCreature(CreatureType.GHAST, loc);
+				}
+				else if(arg2.equalsIgnoreCase("silverfish")) {
+					server.geteListener().spawmCreature(CreatureType.SILVERFISH, loc);
+				}
+				else if(arg2.equalsIgnoreCase("skeleton")) {
+					server.geteListener().spawmCreature(CreatureType.SKELETON, loc);
+				}
+				else if(arg2.equalsIgnoreCase("slime")) {
+					server.geteListener().spawmCreature(CreatureType.SLIME, loc);
+				}
+				else if(arg2.equalsIgnoreCase("spider")) {
+					server.geteListener().spawmCreature(CreatureType.SPIDER, loc);
+				}
+				else if(arg2.equalsIgnoreCase("zombie")) {
+					server.geteListener().spawmCreature(CreatureType.ZOMBIE, loc);
+				}
+				else if(arg2.equalsIgnoreCase("giant")) {
+					server.geteListener().spawmCreature(CreatureType.GIANT, loc);
+				}
+				else {
+					((Player) sender).sendMessage(ChatColor.RED + "Le mob specifie n'est pas reconnu !");
+					return false;
+				}
+				
 				return true;
 			}
 		}

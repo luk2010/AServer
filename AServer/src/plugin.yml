@@ -58,5 +58,10 @@ commands:
         description: Provide help method to.. help you !
         usage:
             /<command> [page or command]
+    spawn:
+        description: Provide spawn function, to spawn mobsand NPC where you are targeting !
+        usage: 
+            /<command> [type] [other]
+    
             
             
