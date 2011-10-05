@@ -23,6 +23,11 @@ public class PlayerOptions implements Serializable {
 		if(mainHomeName.isEmpty())
 			return null;
 		
+		if(homes == null) {
+			homes = new ArrayList<Place>();
+			return null;
+		}
+		
 		for(Place place : homes) {
 			if(place.getName().equals(mainHomeName)) {
 				return place;
@@ -40,6 +45,11 @@ public class PlayerOptions implements Serializable {
 	}
 
 	public int findHome(Place home) {
+		if(homes == null) {
+			homes = new ArrayList<Place>();
+			return -1;
+		}
+		
 		for(int i = 0; i < homes.size(); i++) {
 			Place place = homes.get(i);
 			if(place.getName().equals(home.getName()))
@@ -48,7 +58,7 @@ public class PlayerOptions implements Serializable {
 		return -1;
 	}
 
-	public int getId() {
+	public int getId() {		
 		return id;
 	}
 
@@ -57,6 +67,9 @@ public class PlayerOptions implements Serializable {
 	}
 
 	public String getPlayer() {
+		if(player == null)
+			player = new String();
+		
 		return player;
 	}
 
@@ -81,6 +94,9 @@ public class PlayerOptions implements Serializable {
 	}
 
 	public ArrayList<Place> getTpoints() {
+		if(tpoints == null) {
+			tpoints = new ArrayList<Place>();
+		}
 		return tpoints;
 	}
 
@@ -89,6 +105,9 @@ public class PlayerOptions implements Serializable {
 	}
 	
 	public ArrayList<Place> getHomes() {
+		if(homes == null) {
+			homes = new ArrayList<Place>();
+		}
 		return this.homes;
 	}
 	
@@ -97,6 +116,7 @@ public class PlayerOptions implements Serializable {
 	}
 
 	public Place getTPoint(String tPointName) {
+		getTpoints();
 		if(tPointName.isEmpty())
 			return null;
 		
@@ -116,6 +136,7 @@ public class PlayerOptions implements Serializable {
 	}
 
 	public int findTPoint(Place place) {
+		getTpoints();
 		for(int i = 0; i < tpoints.size(); i++) {
 			Place place1 = tpoints.get(i);
 			if(place1.getName().equals(place.getName()))
@@ -125,6 +146,9 @@ public class PlayerOptions implements Serializable {
 	}
 
 	public String getDefaultChatColor() {
+		if(defaultChatColor == null) {
+			defaultChatColor = new String();
+		}
 		return defaultChatColor;
 	}
 
@@ -133,6 +157,9 @@ public class PlayerOptions implements Serializable {
 	}
 
 	public String getDefaultNameColor() {
+		if(defaultNameColor == null) {
+			defaultNameColor = new String();
+		}
 		return defaultNameColor;
 	}
 

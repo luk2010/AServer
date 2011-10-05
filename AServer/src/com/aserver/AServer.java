@@ -14,10 +14,14 @@ public class AServer extends JavaPlugin {
 	private AEntityListener eListener = new AEntityListener(this);
 	private ABlockListener bListener = new ABlockListener(this);
 	private APluginListener pListener = new APluginListener(this);
+	private PermissionManager permanager = new PermissionManager(this);
 
 	@Override
 	public void onDisable() {
-		Utils.log(Utils.pName() + " Desactivation...");		
+		Utils.log(Utils.pName() + " Desactivation...");	
+		
+		permanager.save();
+		
 		Utils.log(Utils.pName() + " Termine !");
 	}
 
@@ -39,6 +43,12 @@ public class AServer extends JavaPlugin {
 			datasFolder.mkdir();
 		}
 		
+		File permissionsFolder = new File(this.getDataFolder(), "permissions");
+		if(!permissionsFolder.exists()) {
+			Utils.log(Utils.pName() + " Creationd ud dossier des permissions des mondes.");
+			permissionsFolder.mkdir();
+		}
+		
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Event.Type.PLUGIN_ENABLE, pListener, Event.Priority.Normal, this);
 		
@@ -49,6 +59,8 @@ public class AServer extends JavaPlugin {
 		
 		pm.registerEvent(Event.Type.ENTITY_DAMAGE, eListener, Event.Priority.Normal, this);
 		
+		pm.registerEvent(Event.Type.BLOCK_PLACE, bListener, Event.Priority.Highest, this);
+		pm.registerEvent(Event.Type.BLOCK_BREAK, bListener, Event.Priority.Highest, this);
 		pm.registerEvent(Event.Type.BLOCK_PHYSICS, bListener, Event.Priority.Normal, this);
 		pm.registerEvent(Event.Type.BLOCK_CANBUILD, bListener, Event.Priority.Normal, this);
 		
@@ -67,6 +79,8 @@ public class AServer extends JavaPlugin {
 		this.getCommand("weather").setExecutor(cmdExecutor);
 		this.getCommand("help").setExecutor(cmdExecutor);
 		this.getCommand("spawn").setExecutor(cmdExecutor);
+		
+		permanager.init();
 		
 		Utils.log(Utils.pName() + " Activation terminee !");
 	}
@@ -109,6 +123,10 @@ public class AServer extends JavaPlugin {
 
 	public void setpListener(APluginListener pListener) {
 		this.pListener = pListener;
+	}
+	
+	public PermissionManager getPermanager() {
+		return permanager;
 	}
 
 }

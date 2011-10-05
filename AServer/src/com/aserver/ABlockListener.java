@@ -5,9 +5,11 @@ import java.util.HashSet;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 
 public class ABlockListener extends BlockListener {
 	
@@ -49,6 +51,16 @@ public class ABlockListener extends BlockListener {
 			if(tableBase.contains(below)) {
 				e.setCancelled(true);
 			}
+		}
+	}
+	
+	public void onBlockPlace(BlockPlaceEvent e) {
+		e.setBuild(server.getPermanager().canBuild(e.getPlayer()));
+	}
+	
+	public void onBlockBreak(BlockBreakEvent e) {
+		if(!server.getPermanager().canBuild(e.getPlayer())) {
+			e.setCancelled(true);
 		}
 	}
 

@@ -62,6 +62,13 @@ public class PlayerManager extends PlayerListener {
 		} else {
 			Utils.log(Utils.pName() + " Attention, le joueur " + event.getPlayer().getDisplayName() + " s'est connecte plusieurs fois en meme temps !");
 		}
+		
+		if(!server.getPermanager().isWorldLoaded(event.getPlayer().getWorld())) {
+			server.getPermanager().loadWorld(event.getPlayer().getWorld());
+		}
+		
+		if(server.getPermanager().retrievePlayerPermissions(event.getPlayer()) == null)
+			server.getPermanager().createPlayerPermissions(event.getPlayer());
 	}
 	
 	public void onPlayerQuit(PlayerQuitEvent event) 
@@ -281,4 +288,14 @@ public class PlayerManager extends PlayerListener {
 		else
 			return null;
 	}
+	
+	public PlayerPermissions getPlayerPermissions(Player player) {
+		PlayerPermissions perm = server.getPermanager().retrievePlayerPermissions(player);
+		if(perm == null) {
+			perm = server.getPermanager().createPlayerPermissions(player);
+		}
+		
+		return perm;
+	}
+	
 }

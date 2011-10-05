@@ -31,13 +31,14 @@ public class ACommandExecutor implements CommandExecutor
 		String arg3 = args.length >= 3 ? args[2] : "";
 		String arg4 = args.length >= 4 ? args[3] : "";
 		
-		if(base.equalsIgnoreCase("debug")) {
+		boolean isOp = ((Player) sender).isOp();
+		
+		if(base.equalsIgnoreCase("debug") && (isOp || server.getPermanager().hasCommand((Player) sender, "debug")) ) {
 			server.getPlayerManager().onPlayerChangeDebugging((Player)sender);
 			return true;
 		}
-		
-		
-		else if(base.equalsIgnoreCase("sethome")) {
+			
+		else if(base.equalsIgnoreCase("sethome") && (isOp || server.getPermanager().hasCommand((Player) sender, "sethome"))) {
 			if(arg1.isEmpty()) {
 				server.getPlayerManager().onPlayerChangeMainHome((Player)sender);
 				return true;
@@ -49,7 +50,7 @@ public class ACommandExecutor implements CommandExecutor
 		}
 		
 		
-		else if(base.equalsIgnoreCase("home")) {
+		else if(base.equalsIgnoreCase("home") && (isOp || server.getPermanager().hasCommand((Player) sender, "home"))) {
 			if(arg1.isEmpty()) {
 				server.getPlayerManager().teleportHome((Player) sender, server.getPlayerManager().getMainHomeName());
 				return true;
@@ -60,7 +61,7 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("setTPoint")) {
+		else if(base.equalsIgnoreCase("setTPoint") && (isOp || server.getPermanager().hasCommand((Player) sender, "setTPoint"))) {
 			if(arg1.isEmpty()) {
 				return false;
 			}
@@ -70,7 +71,7 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("goTPoint")) {
+		else if(base.equalsIgnoreCase("goTPoint") && (isOp || server.getPermanager().hasCommand((Player) sender, "goTPoint"))) {
 			if(arg1.isEmpty()) {
 				return false;
 			}
@@ -80,7 +81,7 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("tp")) {
+		else if(base.equalsIgnoreCase("tp") && (isOp || server.getPermanager().hasCommand((Player) sender, "tp"))) {
 			if(arg1.isEmpty()) {
 				return false;
 			}
@@ -97,12 +98,12 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("god")) {
+		else if(base.equalsIgnoreCase("god") && (isOp || server.getPermanager().hasCommand((Player) sender, "god"))) {
 			server.getPlayerManager().onPlayerChangeGodMode((Player) sender);
 			return true;
 		}
 		
-		else if(base.equalsIgnoreCase("list")) {
+		else if(base.equalsIgnoreCase("list") && (isOp || server.getPermanager().hasCommand((Player) sender, "list"))) {
 			
 			if(arg1.equalsIgnoreCase("players")) {
 				((Player) sender).sendMessage(ChatColor.GREEN + "Liste des joueurs en ligne :");
@@ -140,7 +141,7 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("give")) {
+		else if(base.equalsIgnoreCase("give") && (isOp || server.getPermanager().hasCommand((Player) sender, "give"))) {
 			if(arg3.isEmpty()) {
 				Material material = Material.matchMaterial(arg2);
 				if(material == null) {
@@ -200,7 +201,7 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("set")) {
+		else if(base.equalsIgnoreCase("set") && (isOp || server.getPermanager().hasCommand((Player) sender, "set"))) {
 			
 			if(arg1.equalsIgnoreCase("chat")) {
 				
@@ -241,7 +242,7 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("get")) {
+		else if(base.equalsIgnoreCase("get") && (isOp || server.getPermanager().hasCommand((Player) sender, "get"))) {
 			
 			if(arg1.equalsIgnoreCase("itemid")) {
 				
@@ -276,7 +277,7 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("time")) {
+		else if(base.equalsIgnoreCase("time") && (isOp || server.getPermanager().hasCommand((Player) sender, "time"))) {
 			
 			if(arg1.equalsIgnoreCase("set")) {
 				
@@ -296,7 +297,7 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("weather")) {
+		else if(base.equalsIgnoreCase("weather") && (isOp || server.getPermanager().hasCommand((Player) sender, "weather"))) {
 			
 			if(arg1.equalsIgnoreCase("set")) {
 				
@@ -321,7 +322,7 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("help")) {
+		else if(base.equalsIgnoreCase("help") && (isOp || server.getPermanager().hasCommand((Player) sender, "help"))) {
 			
 			if(arg1.isEmpty()) {
 				((Player) sender).sendMessage(ChatColor.GREEN + "Help message pour la commande help :");
@@ -365,7 +366,7 @@ public class ACommandExecutor implements CommandExecutor
 			}
 		}
 		
-		else if(base.equalsIgnoreCase("spawn")) {
+		else if(base.equalsIgnoreCase("spawn") && (isOp || server.getPermanager().hasCommand((Player) sender, "spawn"))) {
 			Location loc = server.getPlayerManager().getPlayerTarget((Player) sender);
 			if(loc == null) {
 				((Player) sender).sendMessage(ChatColor.RED + "La cible est soit trop loin soit inexistante (air) !");
